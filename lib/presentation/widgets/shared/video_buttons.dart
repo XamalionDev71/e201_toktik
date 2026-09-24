@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:e201_toktik/config/helpers/human_formats.dart';
 import 'package:e201_toktik/domain/entities/video_post.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,19 @@ class VideoButtons extends StatelessWidget {
           icon: Icons.favorite,
           iconColor: Colors.red,
         ),
+        SizedBox(height: 20),
         _CustomIconButton(
           value: video.views,
           icon: Icons.remove_red_eye_outlined
+        ),
+        SizedBox(height: 20),
+        SpinPerfect(
+          infinite: true,
+          duration: Duration(seconds: 5),
+          child: _CustomIconButton(
+            value: 0,
+            icon: Icons.play_circle_outline
+            )
         )
       ]
     );
@@ -42,7 +53,8 @@ class _CustomIconButton extends StatelessWidget {
           onPressed: (){}, 
           icon: Icon(icon, color: color, size: 30),
         ),
-        Text(HumanFormats.humanReadableNumber(value.toDouble())),
+        if(value > 0)
+          Text(HumanFormats.humanReadableNumber(value.toDouble())),
       ],
     );
   }
